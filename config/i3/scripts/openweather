@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+command -v jq >/dev/null 2>&1 || { echo >&2 "Program 'jq' required but it is not installed.  
+Aborting."; exit 1; }
+command -v wget >/dev/null 2>&1 || { echo >&2 "Program 'wget' required but is not installed.  
+Aborting."; exit 1; }
+
+# Substitute in coordinates 
+
+LAT="6.8489"
+LON="79.9007"
+URL="https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m"
+
+WEATHER_RESPONSE=$(wget -qO- "${URL}")
+WEATHER_TEMP=$(echo "$WEATHER_RESPONSE" | jq '.current_weather.temperature')
+WEATHER_INT=${WEATHER_TEMP%.*}
+
+
+WEATHER_COLOR="#C0CAF5"
+
+full_text="${WEATHER_INT}°C"
+
+echo "${full_text}"
