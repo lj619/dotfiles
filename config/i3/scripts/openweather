@@ -7,8 +7,8 @@ Aborting."; exit 1; }
 
 # Substitute in coordinates 
 
-LAT="6.8489"
-LON="79.9007"
+LAT="hidden"
+LON="hidden"
 URL="https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m"
 
 WEATHER_RESPONSE=$(wget -qO- "${URL}")
